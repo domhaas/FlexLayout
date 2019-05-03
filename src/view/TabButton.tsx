@@ -28,13 +28,35 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
         this.onEndEdit = this.onEndEdit.bind(this);
     }
 
-    onMouseDown(event: Event) {
-        this.props.layout.dragStart(event, "Move: " + this.props.node.getName(), this.props.node, this.props.node.isEnableDrag(), this.onClick.bind(this), this.onDoubleClick.bind(this));
-    }
-
-    onClick(event: Event) {
+    onContextMenu(event: Event) {
+        console.log('test: ', event)
         const node = this.props.node;
         this.props.layout.doAction(Actions.selectTab(node.getId()));
+    }
+
+    onMouseDown(event: any) {
+
+        if (event.button === 2) {
+            this.props.layout.doAction(Actions.selectTab(this.props.node.getId()));
+            /*event.preventDefault();
+            event.stopPropagation();
+            this.props.node._onContextMenu(event)*/
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+            this.props.layout.dragStart(event, "Move: " + this.props.node.getName(), this.props.node, this.props.node.isEnableDrag(), this.onClick.bind(this), this.onDoubleClick.bind(this));
+        }
+    }
+
+    onClick(event: any) {
+        event.preventDefault();
+        event.stopPropagation();
+        //if (event.button === 0) {
+            const node = this.props.node;
+            this.props.layout.doAction(Actions.selectTab(node.getId()));
+        /*} else if (event.button === 2) {
+            this.props.node._onContextMenu(event)
+        }*/
     }
 
     onDoubleClick(event: Event) {
@@ -110,6 +132,10 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
         this.props.layout.doAction(Actions.renameTab(node.getId(), newName));
     }
 
+    bla(e: any) {
+        e.preventDefault()
+    }
+
     render() {
         let cm = this.props.layout.getClassName;
 
@@ -148,18 +174,18 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
                 type="text"
                 autoFocus
                 defaultValue={node.getName()}
-                onKeyDown={this.onTextBoxKeyPress.bind(this)}
+                /*onKeyDown={this.onTextBoxKeyPress.bind(this)}
                 onMouseDown={this.onTextBoxMouseDown.bind(this)}
-                onTouchStart={this.onTextBoxMouseDown.bind(this)}
+                onTouchStart={this.onTextBoxMouseDown.bind(this)}*/
             />;
         }
 
         let closeButton = undefined;
         if (this.props.node.isEnableClose()) {
             closeButton = <div className={cm("flexlayout__tab_button_trailing")}
-                onMouseDown={this.onCloseMouseDown.bind(this)}
+                /*onMouseDown={this.onCloseMouseDown.bind(this)}
                 onClick={this.onClose.bind(this)}
-                onTouchStart={this.onCloseMouseDown.bind(this)}
+                onTouchStart={this.onCloseMouseDown.bind(this)}*/
             />;
         }
 
@@ -169,8 +195,16 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
                 height: this.props.height
             }}
             className={classNames}
+            //onContextMenu={this.bla.bind(this)}
             onMouseDown={this.onMouseDown.bind(this)}
-            onTouchStart={this.onMouseDown.bind(this)}>
+            //onContextMenu={this.onContextMenu.bind(this)}
+            //onClick={this.onClick.bind(this)}
+            /*onClick={this.test.bind(this)}
+            onContextMenu={this.test.bind(this)}
+            onMouseDown={this.test.bind(this)}*/
+            //onMouseDown={this.onMouseDown.bind(this)}
+            //onTouchStart={this.onMouseDown.bind(this)}
+            >
             {leading}
             {content}
             {closeButton}

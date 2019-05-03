@@ -159,6 +159,10 @@ abstract class Node {
         }
     }
 
+    _onContextMenu(event: any) {
+        this._fireEvent("contextMenu", event);
+    }
+
     /** @hidden @internal */
     _getDrawChildren(): Array<Node> | undefined{
         return this._children;

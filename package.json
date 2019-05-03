@@ -4,7 +4,7 @@
   "description": "A multi-tab layout manager",
   "main": "lib/index.js",
   "types": "./declarations/index.d.ts",
-    "keywords": [
+  "keywords": [
     "react",
     "layout",
     "dock",

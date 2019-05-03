@@ -212,6 +212,7 @@ export class TabSet extends React.Component<ITabSetProps, any> {
     }
 
     onMouseDown(event: Event) {
+        return
         let name = this.props.node.getName();
         if (name === undefined) {
             name = "";
