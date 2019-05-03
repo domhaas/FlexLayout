@@ -35,15 +35,13 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
     }
 
     onMouseDown(event: any) {
+        event.preventDefault();
+        event.stopPropagation();
 
         if (event.button === 2) {
-            this.props.layout.doAction(Actions.selectTab(this.props.node.getId()));
-            /*event.preventDefault();
-            event.stopPropagation();
-            this.props.node._onContextMenu(event)*/
+            //this.props.layout.doAction(Actions.selectTab(this.props.node.getId()));
+            this.props.node._onContextMenu(this.props.node, event)
         } else {
-            event.preventDefault();
-            event.stopPropagation();
             this.props.layout.dragStart(event, "Move: " + this.props.node.getName(), this.props.node, this.props.node.isEnableDrag(), this.onClick.bind(this), this.onDoubleClick.bind(this));
         }
     }
@@ -151,6 +149,10 @@ export class TabButton extends React.Component<ITabButtonProps, any> {
 
         if (this.props.node.getClassName() !== undefined) {
             classNames += " " + this.props.node.getClassName();
+        }
+
+        if (this.props.node.isEditorMode()) {
+            classNames += " isEditorMode"
         }
 
         let leadingContent = undefined;

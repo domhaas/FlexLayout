@@ -62,6 +62,7 @@ export class Tab extends React.Component<ITabProps, any> {
         let child = undefined;
         if (this.state.renderComponent) {
             child = this.props.factory(node);
+            console.log('child: ',child)
         }
 
         return <div className={cm("flexlayout__tab")}

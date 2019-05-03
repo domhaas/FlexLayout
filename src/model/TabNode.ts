@@ -19,6 +19,8 @@ class TabNode extends Node implements IDraggable{
     /** @hidden @internal */
     private _extra: JSMap<any>;
 
+    private _isEditorMode: Boolean = false;
+
     /** @hidden @internal */
     constructor(model: Model, json: any) {
         super(model);
@@ -92,6 +94,14 @@ class TabNode extends Node implements IDraggable{
     /** @hidden @internal */
     _setName(name: string) {
         this._attributes["name"] = name;
+    }
+
+    isEditorMode() {
+        return this._isEditorMode;
+    }
+
+    setIsEditorMode(mode: Boolean) {
+        this._isEditorMode = mode;
     }
 
     /** @hidden @internal */

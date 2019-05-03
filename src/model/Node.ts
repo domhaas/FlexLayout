@@ -159,8 +159,8 @@ abstract class Node {
         }
     }
 
-    _onContextMenu(event: any) {
-        this._fireEvent("contextMenu", event);
+    _onContextMenu(node: Node, event: any) {
+        this._fireEvent("contextMenu", {node: node, event: event});
     }
 
     /** @hidden @internal */
